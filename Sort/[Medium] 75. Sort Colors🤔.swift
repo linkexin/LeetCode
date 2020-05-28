@@ -48,6 +48,27 @@ class Solution {
     }
 }
 
+// https://juejin.im/post/5c276c145188256e047dbf12
+func shellSort(_ nums: inout [Int]) {
+    var gap = nums.count / 2
+    while gap > 0 {
+        for start in 0 ..< gap {
+            for i in stride(from: start + gap, to: nums.count, by: gap) {
+                // 这 for 循环是为了找到 nums[i] 应该在的位置
+                // 从 i 位置往前找，只要前面位置的比 nums[i] 小，就交换位置
+                let currentValue = nums[i]
+                var pos = i
+                while pos >= gap && nums[pos - gap] > currentValue {
+                    nums[pos] = nums[pos - gap]
+                    pos -= gap
+                }
+                nums[pos] = currentValue
+            }
+        }
+        gap /= 2
+    }
+}
+
 let s = Solution()
 var arr = [2,0,2,1,1,0]
 s.sortColors(&arr)
