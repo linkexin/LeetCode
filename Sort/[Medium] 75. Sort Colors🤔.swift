@@ -69,6 +69,50 @@ func shellSort(_ nums: inout [Int]) {
     }
 }
 
+// 归并排序 https://www.jianshu.com/p/7829fce77153
+// 原始数组是否排序好与速度无关，因为无论是否排序，归类排序都需要先将数组拆分，然后再合并。因此，归类排序算法的时间复杂度永远为O(nlogn)
+// 对于归类排序算法来说，它的缺点就是在排序过程中，需要创建一个大小与被排序数组相同的工作数组，这个与就地排序类型的算法不一样
+func mergeSort(_ nums: [Int]) -> [Int] {
+    guard nums.count > 1 else {
+        return nums
+    }
+    
+    let middle = nums.count / 2
+    let leftArr = mergeSort(Array(nums[0 ..< middle])) // 注意这里一定是左闭右开，不然数组中的个数永远不会小于2，死循环
+    let rightArr = mergeSort(Array(nums[middle ..< nums.count]))
+    return merge(leftArr, rightArr)
+}
+func merge(_ leftArr: [Int], _ rightArr: [Int]) -> [Int] {
+    var orderedArr = [Int]()
+    var leftI = 0, rightI = 0
+    while leftI < leftArr.count && rightI < rightArr.count {
+        if leftArr[leftI] < rightArr[rightI] {
+            orderedArr.append(leftArr[leftI])
+            leftI += 1
+        } else if leftArr[leftI] > rightArr[rightI] {
+            orderedArr.append(rightArr[rightI])
+            rightI += 1
+        } else {
+            orderedArr.append(leftArr[leftI])
+            leftI += 1
+            orderedArr.append(rightArr[rightI])
+            rightI += 1
+        }
+    }
+    
+    while leftI < leftArr.count {
+        orderedArr.append(leftArr[leftI])
+        leftI += 1
+    }
+    while rightI < rightArr.count {
+        orderedArr.append(rightArr[rightI])
+        rightI += 1
+    }
+    return orderedArr
+}
+
+// ---------------
+
 let s = Solution()
 var arr = [2,0,2,1,1,0]
 s.sortColors(&arr)
