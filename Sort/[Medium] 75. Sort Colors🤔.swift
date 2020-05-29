@@ -68,7 +68,7 @@ func shellSort(_ nums: inout [Int]) {
         gap /= 2
     }
 }
-
+// ---------------
 // 归并排序 https://www.jianshu.com/p/7829fce77153
 // 原始数组是否排序好与速度无关，因为无论是否排序，归类排序都需要先将数组拆分，然后再合并。因此，归类排序算法的时间复杂度永远为O(nlogn)
 // 对于归类排序算法来说，它的缺点就是在排序过程中，需要创建一个大小与被排序数组相同的工作数组，这个与就地排序类型的算法不一样
@@ -112,6 +112,38 @@ func merge(_ leftArr: [Int], _ rightArr: [Int]) -> [Int] {
 }
 
 // ---------------
+// https://zhuanlan.zhihu.com/p/40179798
+func quickSort(_ sta: Int, _ end: Int, _ nums: inout [Int]) {
+    if sta >= end {
+        return
+    }
+    let pivot = partition(sta, end, &nums)
+    // 因为 pivot 已经在最终正确的位置了，所以接下来的排序就不需要再包含 pivot
+    quickSort(sta, pivot - 1, &nums) // 注意这里的 pivot - 1
+    quickSort(pivot + 1, end, &nums) // 注意这里的 pivot + 1
+}
+
+func partition(_ sta: Int, _ end: Int, _ nums: inout [Int]) -> Int {
+    let pivot = (sta + end) / 2
+    let pivotValue = nums[pivot]
+    swap(pivot, end, &nums)
+    
+    var index = sta // 这里注意，index 的初始值是左边界
+    for i in sta ..< end {
+        if nums[i] <= pivotValue {
+            swap(index, i, &nums)
+            index += 1
+        }
+    }
+    swap(index, end, &nums)
+    return index
+}
+
+func swap(_ index1: Int, _ index2: Int, _ nums: inout [Int]) {
+    let temp = nums[index1]
+    nums[index1] = nums[index2]
+    nums[index2] = temp
+}
 
 let s = Solution()
 var arr = [2,0,2,1,1,0]
