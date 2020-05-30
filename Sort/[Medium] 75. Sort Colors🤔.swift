@@ -145,6 +145,97 @@ func swap(_ index1: Int, _ index2: Int, _ nums: inout [Int]) {
     nums[index2] = temp
 }
 
+// --------------
+extension Int {
+    var parent: Int {
+        return (self - 1) / 2
+    }
+    var leftChild: Int {
+        return self * 2 + 1
+    }
+    var rightChild: Int {
+        return self * 2 + 2
+    }
+}
+
+struct Heap<Element> {
+    var nodes = [Element]()
+    var priority: (Element, Element) -> Bool
+    
+    init(_ priority: @escaping (Element, Element) -> Bool) {
+        self.priority = priority
+    }
+    
+    mutating func insert(ele: Element) {
+        nodes.append(ele)
+        shiftUp(nodes.count - 1)
+    }
+     
+    // 把元素向下移动，以恢复堆结构
+    // 这里需要传入范围，针对范围内的数进行整理
+    mutating func shiftDown(_ sta: Int, _ end: Int) {
+        var parent = sta
+        while parent <= end {
+            var maxChild = parent.leftChild
+            if maxChild > end {
+                break
+            }
+            let rightChild = parent.rightChild
+            if rightChild <= end && priority(nodes[maxChild], nodes[rightChild]) {
+                maxChild = rightChild
+            }
+            if priority(nodes[parent], nodes[maxChild]) {
+                swap(parent, maxChild)
+            } else {
+                break
+            }
+            parent = maxChild
+        }
+    }
+    
+    // 把元素向上移动，以恢复堆结构
+    mutating func shiftUp(_ index: Int) {
+        var child = index
+        var parent = index.parent
+        while parent >= 0 {
+            if priority(nodes[parent], nodes[child]) {
+                swap(child, parent)
+                child = parent
+                parent = child.parent
+            } else {
+                break
+            }
+        }
+    }
+    
+    mutating func swap(_ index1: Int, _ index2: Int) {
+        let temp = nodes[index1]
+        nodes[index1] = nodes[index2]
+        nodes[index2] = temp
+    }
+}
+
+extension Heap {
+    mutating func sort() {
+        for i in stride(from: nodes.count - 1, to: 0, by: -1) {
+            swap(0, i)
+            shiftDown(0, i - 1)
+        }
+    }
+}
+
+func sortColors(_ nums: inout [Int]) {
+    var heap = Heap<Int>.init({ (n1, n2) -> Bool in
+        return n1 < n2
+    })
+    for n in nums {
+        heap.insert(ele: n)
+    }
+    heap.sort()
+    nums = heap.nodes
+}
+
+
 let s = Solution()
 var arr = [2,0,2,1,1,0]
 s.sortColors(&arr)
