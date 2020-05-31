@@ -77,6 +77,58 @@ class Solution {
     }
 }
 
+
+// -------------
+// 上面的方法优化了一下，主要是排序的地方直接用字符串比较，省去了位数计算等
+class Solution1 {
+    func priotiry(_ num1: Int, _ num2: Int) -> Bool {
+        let s1 = String(num1)
+        let s2 = String(num2)
+        if s1 + s2 > s2 + s1 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func swap(_ index1: Int, index2: Int, _ nums: inout [Int]) {
+        let temp = nums[index1]
+        nums[index1] = nums[index2]
+        nums[index2] = temp
+    }
+    
+    // 判断数据中是否全是 0
+    func judgeNonZero(_ nums: [Int]) -> Bool {
+        for i in 0 ..< nums.count {
+            if nums[i] != 0 {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func largestNumber(_ nums: [Int]) -> String {
+        guard judgeNonZero(nums) else {
+            return "0"
+        }
+        var nums = nums
+        // 选择排序
+        for i in 0 ..< nums.count {
+            var maxIndex = i
+            var maxValue = nums[i]
+            for j in i + 1 ..< nums.count {
+                if priotiry(nums[j], maxValue) {
+                    maxValue = nums[j]
+                    maxIndex = j
+                }
+            }
+            swap(i, index2: maxIndex, &nums)
+        }
+        
+        return nums.map({"\($0)"}).joined(separator:"")
+    }
+}
+
 let s = Solution()
 print(s.largestNumber([10,2]))
 print(s.largestNumber([12,121]))
