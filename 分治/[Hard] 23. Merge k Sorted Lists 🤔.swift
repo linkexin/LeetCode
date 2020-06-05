@@ -9,6 +9,7 @@ public class ListNode {
 
 // 把合并多个链表，分解为合并两个链表
 // 但是时间比较慢 faster than 5.21%
+// 时间复杂度 O(k^2 n)，空间复杂度 O(n)
 class Solution {
     func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
         var list: ListNode?
