@@ -31,6 +31,42 @@ class Solution {
     }
 }
 
+// -------------------
+// 非递归 O(1) 空间复杂度，直接改变现有的链表节点的 next，但是时间复杂度稍高一些
+class Solution0 {
+    func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+        var list: ListNode?
+        for l in lists {
+            list = mergeTwoLists(list, l)
+        }
+        return list
+    }
+    
+    func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        let head = ListNode() // 需要一个头部节点
+        // p1 表示 l1 下一个需要合并的节点，p2 表示 l2 下一个需要合并的节点，tail 表示下一个插入位置的前一个位置
+        var p1 = l1, p2 = l2, tail: ListNode? = head
+        while p1 != nil && p2 != nil {
+            if (p1?.val) ?? 0 <= (p2?.val) ?? 0 {
+                tail?.next = p1
+                p1 = p1?.next
+                tail = tail?.next
+            } else {
+                tail?.next = p2
+                p2 = p2?.next
+                tail = tail?.next
+            }
+        }
+        if p1 != nil {
+            tail?.next = p1
+        }
+        if p2 != nil {
+            tail?.next = p2
+        }
+        return head.next
+    }
+}
+
 // -----------
 // 递归方法
 class Solution1 {
