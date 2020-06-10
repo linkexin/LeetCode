@@ -24,3 +24,29 @@ class Solution {
         }
     }
 }
+
+// faster than 22.68% 思路不变，稍微修改
+class Solution1 {
+    func permute(_ nums: [Int]) -> [[Int]] {
+        var arr = [Int]()
+        var re = [[Int]]()
+        permutation(nums, &arr, &re)
+        return re
+    }
+    // 不使用 index，直接判断当前排列中是否有某个值，因为这题给的数字是不会重复的，所以可以这么操作
+    func permutation(_ nums: [Int], _ arr: inout [Int], _ re: inout [[Int]]) {
+        if arr.count == nums.count {
+            re.append(arr)
+            return
+        }
+        
+        for n in nums {
+            if arr.contains(n) {
+                continue
+            }
+            arr.append(n)
+            permutation(nums, &arr, &re)
+            arr.removeLast()
+        }
+    }
+}
