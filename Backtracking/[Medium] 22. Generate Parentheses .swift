@@ -1,4 +1,5 @@
 // 递归，每个递归都分别 append 左括号和右括号，然后继续递归
+// 对应官方题解的第二种解法
 class Solution {
     func generateParenthesis(_ n: Int) -> [String] {
         return recursion(n, n, str: "")
