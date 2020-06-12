@@ -24,6 +24,32 @@ class Solution {
     }
 }
 
+// 不使用递归的解法，两种解法时间差不多，使用栈来维护节点
+class Solution1 {
+    func preorderTraversal(_ root: TreeNode?) -> [Int] {
+        guard root != nil else {
+            return []
+        }
+        var node = [Int]()
+        var stack = [TreeNode]()
+        stack.append(root ?? TreeNode())
+        
+        while stack.isEmpty == false {
+            let top = stack.removeLast()
+            node.append(top.val)
+            // 注意先 append 右节点，再是左节点
+            if top.right != nil {
+                stack.append(top.right ?? TreeNode())
+            }
+            if top.left != nil {
+                stack.append(top.left ?? TreeNode())
+            }
+        }
+        
+        return node
+    }
+}
+
 let s = Solution()
 let l1 = TreeNode(1)
 let l2 = TreeNode(2)
