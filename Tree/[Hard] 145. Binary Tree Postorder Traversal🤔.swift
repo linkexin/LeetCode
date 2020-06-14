@@ -25,6 +25,30 @@ class Solution {
     }
 }
 
+// 官方的解法，不是严格按照后续的思路来实现的，而是把前序的思路倒过来
+class Solution0 {
+    func postorderTraversal(_ root: TreeNode?) -> [Int] {
+        guard root != nil else {
+            return []
+        }
+        var node = [Int]()
+        var stack = [TreeNode]()
+        stack.append(root ?? TreeNode())
+        
+        while stack.isEmpty == false {
+            let n = stack.removeLast()
+            node.insert(n.val, at: 0) // insert 在最前面，将前序倒过来
+            if n.left != nil {
+                stack.append(n.left ?? TreeNode())
+            }
+            if n.right != nil {
+                stack.append(n.right ?? TreeNode())
+            }
+        }
+        return node
+    }
+}
+
 let s = Solution()
 let l1 = TreeNode(1)
 let l2 = TreeNode(2)
