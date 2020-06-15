@@ -49,6 +49,35 @@ class Solution0 {
     }
 }
 
+// 非官方的非递归解法，严格按照后续的思路来实现
+class Solution1 {
+    func postorderTraversal(_ root: TreeNode?) -> [Int] {
+        guard root != nil else {
+            return []
+        }
+        var node = [Int]()
+        var stack = [TreeNode]()
+        var cur = root
+        
+        while !stack.isEmpty || cur != nil {
+            while cur != nil {
+                stack.append(cur!)
+                cur = cur!.left
+            }
+            let temp = stack.last!
+            
+            if temp.right == nil {
+                stack.removeLast()
+                node.append(temp.val)
+            } else {
+                cur = temp.right
+                temp.right = nil
+            }
+        }
+        return node
+    }
+}
+
 let s = Solution()
 let l1 = TreeNode(1)
 let l2 = TreeNode(2)
