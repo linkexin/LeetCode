@@ -31,6 +31,28 @@ class Solution {
     }
 }
 
+// faster than 73.83%
+// 稍微改进了一点点，把「判断 p q 是否是 root」提前到递归之前，会更快一些
+class Solution1 {
+    func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+        guard root != nil else {
+            return nil
+        }
+        // 先判断 p q 是否是 root，如果是就直接返回，不用再递归下去了
+        if root?.val == p?.val || root?.val == q?.val {
+            return root
+        }
+        
+        let left = lowestCommonAncestor(root?.left, p, q)
+        let right = lowestCommonAncestor(root?.right, p, q)
+        
+        if left != nil && right != nil {
+            return root
+        }
+        return left == nil ? right : left
+    }
+}
+
 let l1 = TreeNode(3)
 let l2 = TreeNode(5)
 l1.left = l2
