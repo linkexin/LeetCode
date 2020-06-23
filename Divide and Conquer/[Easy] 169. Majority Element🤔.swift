@@ -14,3 +14,13 @@ class Solution {
         return maxVal
     }
 }
+
+
+// O(nlogn), faster than 29.23%
+// 排序以后取中间位置的值
+class Solution1 {
+    func majorityElement(_ nums: [Int]) -> Int {
+        let nums = nums.sorted()
+        return nums[nums.count / 2]
+    }
+}
