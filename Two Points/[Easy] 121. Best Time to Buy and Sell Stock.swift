@@ -17,7 +17,7 @@ class Solution {
 }
 
 // O(n)
-class Solution {
+class Solution1 {
     func maxProfit(_ prices: [Int]) -> Int {
         if prices.count <= 1 {
             return 0
@@ -34,6 +34,8 @@ class Solution {
         return tMax
     }
 }
+
+// 还有一种动规解法，见动规目录
 
 let s = Solution()
 s.maxProfit([1, 2, 3, 4,7])
