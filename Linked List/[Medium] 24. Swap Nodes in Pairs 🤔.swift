@@ -24,6 +24,27 @@ class Solution {
     }
 }
 
+// 正经改变指针的解法，需要 3 个指针，注意还需要一个 pre 指针，指向两个待交换结点的前一个结点
+class Solution1 {
+    func swapPairs(_ head: ListNode?) -> ListNode? {
+        let lead = head?.next ?? head
+        var pre: ListNode?
+        var n1 = head
+        var n2 = n1?.next
+        
+        while n1 != nil && n2 != nil {
+            n1?.next = n2?.next
+            n2?.next = n1
+            pre?.next = n2
+            
+            pre = n1
+            n1 = n1?.next
+            n2 = n1?.next
+        }
+        return lead
+    }
+}
+
 let s = Solution()
 let a = ListNode(1)
 let b = ListNode(2)
