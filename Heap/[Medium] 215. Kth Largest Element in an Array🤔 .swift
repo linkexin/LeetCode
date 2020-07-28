@@ -1,5 +1,5 @@
 // 64ms
-// 最容易想到的排序后输出，可能是测试用例的关系，这种方法f反而挺快的
+// 最容易想到的排序后输出，可能是测试用例的关系，这种方法反而挺快的
 class Solution {
     func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
         let nums = nums.sorted()
@@ -10,7 +10,7 @@ class Solution {
 // ------------------------------------------------------
 // 80ms
 // 堆 的实现方式，堆的具体实现参考：https://swift.gg/2019/05/06/implementing-a-heap-based-priority-queue-using-swift/
-// 维护一个小顶堆，保证堆的容量为输入的 k，堆中的元素就是前 k 个大的数，前 k 个大的数中取最小的，就是第 k 个大的数
+// 维护一个小顶堆，保证堆的容量为输入的 k，堆中的元素就是前 k 个大的数，前 k 个大的数中取最小的，就是第 k 大的数
 extension Int {
     var parentIndex: Int {
         return (self - 1) / 2
