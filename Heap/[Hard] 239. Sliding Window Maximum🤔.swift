@@ -1,4 +1,4 @@
-
+// 另一种实现在 Slide Window 中找
 extension Int {
     var parent: Int {
         return (self - 1) / 2
