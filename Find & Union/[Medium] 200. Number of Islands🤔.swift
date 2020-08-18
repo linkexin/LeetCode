@@ -7,7 +7,6 @@ class Solution {
             for j in 0 ..< grid[i].count {
                 if grid[i][j] == "1" {
                     count += 1
-                    
                     mark(&grid, i, j)
                 }
             }
