@@ -15,18 +15,16 @@
 // O(N)
 class Solution {
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-        var hash = [Int: Int]()
-        var arr = [Int]()
-        
-        for (i, num) in nums.enumerated() {
-            if let j = hash[num] {
-                arr.append(j)
-                arr.append(i)
-                break
+        // num -> index
+        var dic = [Int: Int]()
+        for (i, n) in nums.enumerated() {
+            if dic[target - n] != nil {
+                return [dic[target - n]!, i]
+            } else {
+                dic[n] = i
             }
-            hash[target - num] = i
         }
-        return arr
+        return []
     }
 }
 
