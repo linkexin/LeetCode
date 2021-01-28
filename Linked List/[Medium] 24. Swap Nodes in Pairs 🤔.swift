@@ -35,7 +35,7 @@ class Solution1 {
         while n1 != nil && n2 != nil {
             n1?.next = n2?.next
             n2?.next = n1
-            pre?.next = n2
+            pre?.next = n2 // 这句是关键
             
             pre = n1
             n1 = n1?.next

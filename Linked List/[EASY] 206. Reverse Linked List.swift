@@ -7,24 +7,20 @@ public class ListNode {
     }
 }
 
+// 参考：https://leetcode.com/problems/reverse-linked-list/discuss/58179/Swift-solution
 class Solution {
     // 非递归方法
     func reverseList(_ head: ListNode?) -> ListNode? {
-        var previous: ListNode? = nil
-        var node = head
-        var next = node?.next
-        
-        while true {
-            next = node?.next
-            node?.next = previous
-            previous = node
-            if next == nil {
-                break
-            }
-            node = next
+        var head = head
+        var pre: ListNode? = nil
+        var next: ListNode? = nil
+        while head != nil {
+            next = head?.next
+            head?.next = pre
+            pre = head
+            head = next
         }
-        
-        return node
+        return pre
     }
     
     // 递归方法
