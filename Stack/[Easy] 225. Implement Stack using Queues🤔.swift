@@ -88,3 +88,51 @@ obj.pop()
 obj.empty()
 
 
+// 2020.01.30
+class Queue {
+    var arr = [Int]()
+    func push(_ x: Int) {
+        arr.insert(x, at: 0)
+    }
+    func pop() -> Int {
+        return arr.removeLast()
+    }
+    func count() -> Int {
+        return arr.count
+    }
+}
+
+class MyStack {
+    var queue = Queue()
+    
+    /** Initialize your data structure here. */
+    init() {
+        
+    }
+    
+    /** Push element x onto stack. */
+    func push(_ x: Int) {
+        queue.push(x)
+        for _ in 0 ..< queue.count() - 1 {
+            queue.push(queue.pop())
+        }
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    func pop() -> Int {
+        return queue.pop()
+    }
+    
+    /** Get the top element. */
+    func top() -> Int {
+        // 因为这里不能直接使用到 queue 中的数组了，所以还是要借助 queue 封装的方法来实现
+        let top = queue.pop()
+        push(top) // 调用自己的 push 方法
+        return top
+    }
+    
+    /** Returns whether the stack is empty. */
+    func empty() -> Bool {
+        return queue.count() == 0
+    }
+}
