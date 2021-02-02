@@ -1,4 +1,5 @@
 // 看到题解标题写着「排序+双指针」大概想到了解法，但是卡在了一些边缘 case
+// 需要注意几个时间优化点，不然容易超时
 class Solution {
     func threeSum(_ nums: [Int]) -> [[Int]] {
         var result = [[Int]]()
@@ -14,17 +15,20 @@ class Solution {
             if a[index] > 0 {
                 break
             }
+            // 时间优化点 1
             if index > 0 && a[index] == a[index - 1] {
                 continue
             }
             
             var left = index + 1, right = a.count - 1
             while left != right {
+                // 时间优化点 2
                 // left 需要和上个 left 的值不同，不然有可能输出两个相同的值
                 if left != index + 1 && a[left] == a[left - 1] {
                     left += 1
                     continue
                 }
+                // 时间优化点 3
                 if right < a.count - 1 && a[right] == a[right + 1] {
                     right -= 1
                     continue
