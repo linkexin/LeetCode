@@ -16,7 +16,7 @@ extension Int {
 struct Heap<ElementType> {
     var elements = [ElementType]()
     var priority: (ElementType, ElementType) -> Bool
-    init(_ priority: @escaping (ElementType, ElementType) -> Bool) {
+    init(_ priority: @escaping (ElementType, ElementType) -> Bool) { // @escaping 关键字
         self.priority = priority
     }
     

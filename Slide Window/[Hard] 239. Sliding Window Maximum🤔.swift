@@ -39,3 +39,39 @@ class Solution {
         
     }
 }
+
+// 2021-02-02 window 存放下标是因为需要通过下标判断元素是否还在滑动窗口范围内
+// 将上面两个循环合并一下：
+class Solution {
+    func maxSlidingWindow(_ nums: [Int], _ k: Int) -> [Int] {
+        guard nums.count > 0 && k > 0 else {
+            return []
+        }
+        var window = [Int]() // 存放下标
+        var result = [Int]()
+        
+        for i in 0 ..< nums.count {
+            // 当下标 <= i - k 时表示最开头的元素已经不在窗口范围内了，直接移除掉
+            if !window.isEmpty && window.first! <= i - k {
+                window.removeFirst()
+            }
+            while !window.isEmpty && nums[window.last!] < nums[i] {
+                window.removeLast()
+            }
+            window.append(i)
+            if i >= k - 1 { // 这里加个限制条件即可
+                result.append(nums[window.first ?? 0])
+            }
+        }
+        return result
+    }
+}
+
+let s = Solution()
+print(s.maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3))//[3,3,5,5,6,7]
+print(s.maxSlidingWindow([1,3,-1,-3,5,3,6,7], 4))//[3, 5, 5, 6, 7]
+print(s.maxSlidingWindow([1,3,1,2,0,5], 3))//[3, 3, 2, 5]
+print(s.maxSlidingWindow([1], 1)) // [1]
+print(s.maxSlidingWindow([1, -1], 1)) // [1, -1]
+print(s.maxSlidingWindow([9, 11], 2)) // [11]
+print(s.maxSlidingWindow([4, 2], 2)) // [4]
