@@ -11,6 +11,30 @@ public class TreeNode {
     }
 }
 
+// 中序遍历，记录所有数字，然后判断数组是不是递增的
+class Solution {
+    func isValidBST(_ root: TreeNode?) -> Bool {
+        let inorder = inOrder(root)
+        for i in 1 ..< inorder.count {
+            if inorder[i] <= inorder[i - 1] {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func inOrder(_ root: TreeNode?) -> [Int] {
+        if root == nil {
+            return []
+        }
+        
+        var lr = inOrder(root?.left)
+        lr.append(root?.val ?? 0)
+        lr.append(contentsOf: inOrder(root?.right))
+        return lr
+    }
+}
+
 // faster than 75.56%
 class Solution {
     func isValidBST(_ root: TreeNode?) -> Bool {
