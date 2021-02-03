@@ -11,7 +11,7 @@ class Solution {
 
         // index 的范围要注意
         for index in 0...a.count - 3 {
-            // 最小的数都大于 0 了，证明无解
+            // 最小的数都大于 0 了，证明无解，注意如果目标和不是 0，这个判断就不能加了
             if a[index] > 0 {
                 break
             }
