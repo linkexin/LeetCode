@@ -32,3 +32,40 @@ class Solution {
         return left == [-1, -1] ? right : left
     }
 }
+
+// 2020.02.07
+class Solution {
+    // 全局变量用来更新左右边界值
+    var left = Int.max, right = Int.min
+    func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+        guard nums.count > 0 else {
+            return [-1, -1]
+        }
+        divide(nums, target, 0, nums.count - 1)
+        return right < 0 ? [-1, -1] : [left, right]
+    }
+    
+    func divide(_ nums: [Int], _ target: Int, _ start: Int, _ end: Int) {
+        if start > end {
+            return
+        }
+        
+        let mid = start + (end - start) >> 1
+        // 一旦找到目标值，更新左右边界
+        if nums[mid] == target {
+            if mid < left {
+                left = mid
+            }
+            if mid > right {
+                right = mid
+            }
+        }
+        // 如果 nums[mid] == target 的话，下面两个递归都会进行
+        if nums[mid] <= target {
+            divide(nums, target, mid + 1, end)
+        }
+        if nums[mid] >= target {
+            divide(nums, target, start, mid - 1)
+        }
+    }
+}
