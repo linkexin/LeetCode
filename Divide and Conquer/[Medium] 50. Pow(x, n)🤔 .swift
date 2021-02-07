@@ -18,7 +18,7 @@ class Solution {
     }
 }
 
-// https://leetcode-cn.com/problems/powx-n/solution/50-powx-n-kuai-su-mi-qing-xi-tu-jie-by-jyd/
+// 快速幂方式，一定要掌握
 // 非递归方法，倒着想反而不太顺，faster than 97.00%
 class Solution1 {
     func myPow(_ x: Double, _ n: Int) -> Double {
