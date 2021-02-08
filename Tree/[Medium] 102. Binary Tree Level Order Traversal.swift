@@ -32,6 +32,40 @@ class Solution {
     }
 }
 
+// 2020.02.08 补充 bfs 的方式
+class Solution {
+    private var levels = [[Int]]()
+    func levelOrder(_ root: TreeNode?) -> [[Int]] {
+        guard let root = root else {
+            return []
+        }
+        bfs(root)
+        return levels
+    }
+    
+    func bfs(_ root: TreeNode) {
+        var queue = [TreeNode]()
+        queue.append(root)
+        
+        while queue.count > 0 {
+            var level = [Int]()
+            for i in (0 ..< queue.count).reversed() {
+                level.append(queue[i].val)
+            }
+            levels.append(level)
+            for _ in 0 ..< queue.count {
+                let node = queue.removeLast()
+                if let l = node.left {
+                    queue.insert(l, at: 0)
+                }
+                if let r = node.right {
+                    queue.insert(r, at: 0)
+                }
+            }
+        }
+    }
+}
+
 let l1 = TreeNode(3)
 let l2 = TreeNode(5)
 l1.left = l2
