@@ -89,3 +89,42 @@ class LRUCache {
         print("---")
     }
 }
+
+//2021.02.22 直接用数组实现，get put 都是 O(N) 时间，最后超时了
+class LRUCache {
+    var cache = [(key: Int, value: Int)]()
+    var capacity = 0
+    
+    init(_ capacity: Int) {
+        self.capacity = capacity
+    }
+    
+    func get(_ key: Int) -> Int {
+        for (i, node) in cache.enumerated() {
+            if node.key == key {
+                cache.remove(at: i)
+                cache.insert(node, at: 0)
+                return node.value
+            }
+        }
+        return -1
+    }
+    
+    func put(_ key: Int, _ value: Int) {
+        var index = -1
+        for (i, node) in cache.enumerated() {
+            if node.key == key {
+                index = i
+                break
+            }
+        }
+        if index == -1 {
+            if cache.count == capacity {
+                cache.removeLast()
+            }
+        } else {
+            cache.remove(at: index)
+        }
+        cache.insert((key, value), at: 0)
+    }
+}
