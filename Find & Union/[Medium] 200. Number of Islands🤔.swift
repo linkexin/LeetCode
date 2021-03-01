@@ -16,7 +16,7 @@ class Solution {
     
     // 上 下 左 右
     let dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-    // 递归将四周标记为 0，用的深搜
+    // 递归将四周标记为 0，用的 dfs
     func mark(_ grid: inout [[Character]], _ i: Int, _ j: Int) {
         grid[i][j] = "0"
         for d in dir {
