@@ -72,6 +72,8 @@ func shellSort(_ nums: inout [Int]) {
 // 归并排序 https://www.jianshu.com/p/7829fce77153
 // 原始数组是否排序好与速度无关，因为无论是否排序，归类排序都需要先将数组拆分，然后再合并。因此，归类排序算法的时间复杂度永远为O(nlogn)
 // 对于归类排序算法来说，它的缺点就是在排序过程中，需要创建一个大小与被排序数组相同的工作数组，这个与就地排序类型的算法不一样
+
+// 因为不是原地排序，所以不需要传 start end，直接将子数组传进来
 func mergeSort(_ nums: [Int]) -> [Int] {
     guard nums.count > 1 else {
         return nums
@@ -82,6 +84,8 @@ func mergeSort(_ nums: [Int]) -> [Int] {
     let rightArr = mergeSort(Array(nums[middle ..< nums.count]))
     return merge(leftArr, rightArr)
 }
+
+// 合并两个有序数组，其实就是双指针操作
 func merge(_ leftArr: [Int], _ rightArr: [Int]) -> [Int] {
     var orderedArr = [Int]()
     var leftI = 0, rightI = 0
@@ -113,6 +117,7 @@ func merge(_ leftArr: [Int], _ rightArr: [Int]) -> [Int] {
 
 // ---------------
 // https://zhuanlan.zhihu.com/p/40179798
+// https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F 维基百科的伪代码写的很直白
 func quickSort(_ sta: Int, _ end: Int, _ nums: inout [Int]) {
     if sta >= end {
         return
