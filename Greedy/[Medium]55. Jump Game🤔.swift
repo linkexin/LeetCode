@@ -22,3 +22,24 @@ class Solution {
         return step.last == true
     }
 }
+
+
+// 参考：https://leetcode-cn.com/problems/jump-game/solution/55-by-ikaruga/
+// 这种方法所依据的核心思路：如果一个位置能够到达，那么这个位置左侧所有位置都能到达。
+class Solution {
+    func canJump(_ nums: [Int]) -> Bool {
+        var k = 0 // 最远能跳到的位置
+        for i in 0 ..< nums.count {
+            // 目前的起跳点是 i，当之前最远能跳到的距离不能到达目前的起跳点，说明后续的点肯定也到不了
+            if i > k {
+                return false
+            }
+            // 如果最远能跳到的位置已经到达目的地了，直接 return，提高效率
+            if k >= nums.count {
+                return true
+            }
+            k = max(k, nums[i] + i)
+        }
+        return true
+    }
+}
