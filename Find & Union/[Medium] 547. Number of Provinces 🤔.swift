@@ -2,7 +2,7 @@
 struct UnionFind<T: Hashable> {
     var count = 0 // 表示内部集合的 count，并不是元素个数
     var parent: [Int]
-    var rank: [Int]
+    var rank: [Int] // rank[i] 表示以 i 为根节点的树的层数
     
     init(_ grid: [[T]]) {
         let m = grid.count
@@ -16,10 +16,12 @@ struct UnionFind<T: Hashable> {
     }
     
     func find(_ i: Int) -> Int {
-        if parent[i] == i {
-            return i
+        if parent[ele] == ele {
+            return ele
         }
-        return find(parent[i])
+        // 路径压缩，尽量减少层级，直接指向最终的 root
+        parent[ele] = find(parent[ele])
+        return parent[ele]
     }
     
     mutating func union(_ i: Int, _ j: Int) {

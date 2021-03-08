@@ -172,6 +172,7 @@ struct Heap<Element> {
     }
     
     mutating func insert(ele: Element) {
+        // 每次插入将元素放到最后，然后将元素向上移动，来恢复堆结构
         nodes.append(ele)
         shiftUp(nodes.count - 1)
     }
