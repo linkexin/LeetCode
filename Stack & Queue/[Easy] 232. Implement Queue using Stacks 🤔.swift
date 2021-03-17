@@ -71,12 +71,10 @@ class Stack {
 
 class MyQueue {
     var stack = Stack()
-    
     /** Initialize your data structure here. */
     init() {
         
     }
-    
     /** Push element x to the back of queue. */
     // 在 push 阶段就数据按照 queue 的规则排列好
     func push(_ x: Int) {
