@@ -42,6 +42,7 @@ class Solution {
         }
         var slow = head
         var fast = head
+        // 注意这个 while 条件，不是 slow != nil && fast != nil
         while slow?.next != nil && fast?.next?.next != nil {
             slow = slow?.next
             fast = fast?.next?.next
