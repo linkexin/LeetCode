@@ -88,7 +88,7 @@ obj.pop()
 obj.empty()
 
 
-// 2020.01.30
+// 2021.01.30
 class Queue {
     var arr = [Int]()
     func push(_ x: Int) {
