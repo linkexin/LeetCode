@@ -25,29 +25,23 @@ class Solution {
 }
 
 // 不使用递归的解法，两种解法时间差不多，使用栈来维护节点
-// 参考题解：https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
-class Solution1 {
+// https://www.bilibili.com/video/BV15K4y1Y7Gz
+class Solution {
     func preorderTraversal(_ root: TreeNode?) -> [Int] {
-        guard root != nil else {
-            return []
-        }
-        var node = [Int]()
-        var stack = [TreeNode]()
-        stack.append(root ?? TreeNode())
-        
-        while stack.isEmpty == false {
+        var root = root
+        var order = [Int]()
+        var stack = [TreeNode?]()
+        while root != nil || !stack.isEmpty {
+            while root != nil {
+                order.append(root!.val)
+                stack.append(root)
+                root = root?.left
+            }
             let top = stack.removeLast()
-            node.append(top.val)
-            // 注意先 append 右节点，再是左节点
-            if top.right != nil {
-                stack.append(top.right ?? TreeNode())
-            }
-            if top.left != nil {
-                stack.append(top.left ?? TreeNode())
-            }
+            root = top?.right
         }
         
-        return node
+        return order
     }
 }
 
