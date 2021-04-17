@@ -28,6 +28,29 @@ class Solution {
     }
 }
 
+// 非递归后续遍历 https://www.bilibili.com/video/BV15K4y1Y7Gz
+// 前序是根左右，后续是左右根，所以前序->后序可以是
+// 根左右->根右左->左右根
+class Solution {
+    func postorderTraversal(_ root: TreeNode?) -> [Int] {
+        var root = root
+        var order = [Int]()
+        var stack = [TreeNode?]()
+        while root != nil || !stack.isEmpty {
+            while root != nil {
+                order.append(root!.val)
+                stack.append(root)
+                root = root?.right // 和前序不一样的地方，为了实现根右左，后序是尽可能的往右下走
+            }
+            let top = stack.removeLast()
+            root = top?.left // 和前序不一样的地方
+        }
+        order = order.reversed() //根右左->左右根
+        
+        return order
+    }
+}
+
 let s = Solution()
 let l1 = TreeNode(1)
 let l2 = TreeNode(2)
