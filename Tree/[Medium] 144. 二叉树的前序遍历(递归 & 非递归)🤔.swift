@@ -25,6 +25,7 @@ class Solution {
 }
 
 // 不使用递归的解法，两种解法时间差不多，使用栈来维护节点
+// 参考题解：https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
 class Solution1 {
     func preorderTraversal(_ root: TreeNode?) -> [Int] {
         guard root != nil else {
